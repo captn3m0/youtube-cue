@@ -1,3 +1,4 @@
+/*jshint esversion: 6 */
 const TS_REGEX = /((\d{1,2}:)?\d{1,2}:\d{1,2})/;
 
 var filterTimestamp = function(line) {
