@@ -4,12 +4,35 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
-  "keywords": [],
   "author": "Nemo <me@captnemo.in>",
   "license": "MIT",
   "devDependencies": {
     "mocha": "^3.4.2"
-  }
+  },
+  "dependencies": {
+    "console-log-level": "^1.4.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/captn3m0/youtube-ripper.in"
+  },
+  "keywords": [
+    "youtube-ripper",
+    "youtube",
+    "download",
+    "youtube-dl",
+    "ffmpeg",
+    "split",
+    "album",
+    "avconv",
+    "cue",
+    "ripper"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/captn3m0/youtube-ripper/issues"
+  },
+  "homepage": "https://github.com/captn3m0/youtube-ripper"
 }
