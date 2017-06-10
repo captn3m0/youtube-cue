@@ -3,7 +3,7 @@ var assert = require('assert');
 var parser = require('../parser');
 
 const TEXT = `
-00:40 Hello World
+00:40 The Coders - Hello World
 12:23 This is not the end
 Something else in the middle
 1:23:11 Not the last song

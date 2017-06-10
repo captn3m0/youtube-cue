@@ -12,7 +12,10 @@
     "mocha": "^3.4.2"
   },
   "dependencies": {
-    "console-log-level": "^1.4.0"
+    "console-log-level": "^1.4.0",
+    "get-artist-title": "^1.0.0",
+    "meow": "^3.7.0",
+    "ora": "^1.2.0"
   },
   "repository": {
     "type": "git",
@@ -30,7 +33,6 @@
     "cue",
     "ripper"
   ],
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/captn3m0/youtube-ripper/issues"
   },

@@ -1,5 +1,11 @@
+var colors = require('mocha/lib/reporters/base').colors;
+
+colors['pass'] = '30;42';
+
 /*jshint esversion: 6 */
 const TS_REGEX = /((\d{1,2}:)?\d{1,2}:\d{1,2})/;
+const getArtistTitle = require('get-artist-title');
+var _options = {};
 
 var filterTimestamp = function(line) {
   return TS_REGEX.test(line);
@@ -27,12 +33,21 @@ var parseTitle = function(obj) {
   return Object.assign({ title: title }, obj);
 };
 
+var parseArtist = function(obj) {
+  let [artist, title] = getArtistTitle(obj.title, {
+    defaultArtist: _options.artist,
+  });
+  return Object.assign({ artist: artist, title: title }, obj);
+};
+
 module.exports = {
-  parse: function(text) {
+  parse: function(text, options = { artist: 'Unknown' }) {
+    _options = options;
     return text
       .split('\n')
       .filter(filterTimestamp)
       .map(parseTimeStamp)
-      .map(parseTitle);
+      .map(parseTitle)
+      .map(parseArtist);
   },
 };
