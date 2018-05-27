@@ -1,7 +1,7 @@
 {
   "name": "youtube-ripper",
   "version": "1.0.0",
-  "description": "",
+  "description": "rips entire albums from youtube videos",
   "main": "index.js",
   "scripts": {
     "test": "mocha"
@@ -9,17 +9,17 @@
   "author": "Nemo <me@captnemo.in>",
   "license": "MIT",
   "devDependencies": {
-    "mocha": "^3.4.2"
+    "mocha": "^5.2.0"
   },
   "dependencies": {
     "console-log-level": "^1.4.0",
-    "get-artist-title": "^1.0.0",
-    "meow": "^3.7.0",
-    "ora": "^1.2.0"
+    "get-artist-title": "^1.1.0",
+    "meow": "^5.0.0",
+    "ora": "^2.1.0"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/captn3m0/youtube-ripper.in"
+    "url": "https://github.com/captn3m0/youtube-ripper"
   },
   "keywords": [
     "youtube-ripper",
