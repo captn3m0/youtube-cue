@@ -1,6 +1,6 @@
 /*jshint esversion: 6 */
 var assert = require('assert');
-var parser = require('../parser');
+var parser = require('../src/parser');
 
 const TEXT = `
 00:40 The Coders - Hello World
