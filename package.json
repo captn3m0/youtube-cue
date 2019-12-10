@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "console-log-level": "^1.4.1",
-    "get-artist-title": "^1.1.1",
+    "get-artist-title": "^1.2.0",
     "meow": "^5.0.0",
     "ora": "^2.1.0"
   },
