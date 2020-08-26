@@ -9,7 +9,7 @@
   "author": "Nemo <me@captnemo.in>",
   "license": "MIT",
   "devDependencies": {
-    "mocha": "^8.1.0"
+    "mocha": "^8.1.2"
   },
   "dependencies": {
     "console-log-level": "^1.4.1",
