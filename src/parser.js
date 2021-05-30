@@ -1,11 +1,6 @@
-const utils = require('./utils');
-var colors = require('mocha/lib/reporters/base').colors;
-
-colors['pass'] = '30;42';
-
 /*jshint esversion: 6 */
 /**
- * https://regex101.com/r/LEPUGb/1/
+ * https://regex101.com/r/XwBLUH/1/
  * This regex parses out the following groups:
  * tracknumber at the start of the line, optional
  * start_ts: complete track start timestamp (hh:mm:ss) (mm:ss is minimum)
@@ -24,19 +19,23 @@ colors['pass'] = '30;42';
  * It is suggested to check their lengths and pick one to parse as the Track Title
  */
 const TS_REGEX = /^((?<track>\d{1,3})\.)* *(?<text_1>.*?) *(?<start_ts>((?<start_hh>\d{1,2}):)?(?<start_mm>\d{1,2}):(?<start_ss>\d{1,2})) *-? *(?<end_ts>(?<end_hh>\d{1,2}:)?(?<end_mm>\d{1,2}):(?<end_ss>\d{1,2}))? *(?<text_2>.*?)$/;
-const getArtistTitle = require('get-artist-title');
+import getArtistTitle from 'get-artist-title'
 var _options = {};
+
+function convertTime(h,m,s) {
+  return (+h) * 60 * 60 + (+m) * 60 + (+s)
+}
 
 var filterTimestamp = function(line) {
   return TS_REGEX.test(line)
 };
 
-var parse = function(line) {
+var firstPass = function(line) {
   let matches = line.match(TS_REGEX);
   return {
-    track: parseInt(matches.groups['track'], 10),
+    track: matches.groups['track'] ? +matches.groups['track'] : null,
     start: {
-      ts: matches.groups['start_ts'],
+      ts: matches.groups['start_ts'].length<6 ? `00:${matches.groups['start_ts']}` : matches.groups['start_ts'],
       hh: matches.groups['start_hh'] ? +matches.groups['start_hh'] : 0,
       // These 2 are always set
       mm: +matches.groups['start_mm'],
@@ -57,9 +56,9 @@ var parse = function(line) {
 
 var calcTimestamp = function(obj) {
   if(obj.end) {
-    obj.end.calc = utils.convertTime(obj.end.hh,obj.end.mm,obj.end.ss)
+    obj.end.calc = convertTime(obj.end.hh,obj.end.mm,obj.end.ss)
   }
-  obj.start.calc = utils.convertTime(obj.start.hh,obj.start.mm,obj.start.ss)
+  obj.start.calc = convertTime(obj.start.hh,obj.start.mm,obj.start.ss)
   return obj
 }
 
@@ -73,19 +72,38 @@ var parseTitle = function(obj) {
 var parseArtist = function(obj) {
   let [artist, title] = getArtistTitle(obj.title, {
     defaultArtist: _options.artist,
+    defaultTitle: obj.title
   });
   return Object.assign({ artist: artist, title: title }, obj);
 };
 
-module.exports = {
-  parse: function(text, options = { artist: 'Unknown' }) {
-    _options = options;
-    return text
-      .split('\n')
-      .filter(filterTimestamp)
-      .map(parse)
-      .map(calcTimestamp)
-      .map(parseTitle)
-      .map(parseArtist);
-  },
-};
+var addTrack = function(obj, index) {
+  if (obj.track==null) {
+    obj.track = index+1
+  }
+  return obj
+}
+
+var addEnd = function(obj, index, arr) {
+  if (!obj.end) {
+    if(arr.length!=index+1) {
+      let next = arr[index+1]
+      obj.end = next.start
+      return obj
+    }
+  }
+  return obj
+}
+
+export function parse (text, options = { artist: 'Unknown' }) {
+  _options = options;
+  return text
+    .split('\n')
+    .filter(filterTimestamp)
+    .map(firstPass)
+    .map(calcTimestamp)
+    .map(parseTitle)
+    .map(parseArtist)
+    .map(addTrack)
+    .map(addEnd)
+}

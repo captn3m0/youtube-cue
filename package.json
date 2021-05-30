@@ -1,11 +1,12 @@
 {
-  "name": "youtube-ripper",
+  "name": "youtube-cue",
   "version": "1.0.0",
-  "description": "rips entire albums from youtube videos",
+  "description": "Generates Cue sheet from Youtube URL",
   "main": "index.js",
   "scripts": {
     "test": "mocha"
   },
+  "bin": "index.js",
   "author": "Nemo <npm@captnemo.in>",
   "license": "MIT",
   "devDependencies": {
@@ -15,26 +16,23 @@
     "console-log-level": "^1.4.1",
     "get-artist-title": "^1.3.1",
     "meow": "^10.0.0",
-    "ora": "^5.4.0"
+    "ora": "^5.4.0",
+    "ytdl-core": "^4.8.2"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/captn3m0/youtube-ripper"
+    "url": "https://github.com/captn3m0/youtube-cue"
   },
+  "type": "module",
   "keywords": [
-    "youtube-ripper",
+    "youtube-cue",
     "youtube",
-    "download",
-    "youtube-dl",
-    "ffmpeg",
     "split",
     "album",
-    "avconv",
-    "cue",
-    "ripper"
+    "cue"
   ],
   "bugs": {
-    "url": "https://github.com/captn3m0/youtube-ripper/issues"
+    "url": "https://github.com/captn3m0/youtube-cue/issues"
   },
-  "homepage": "https://github.com/captn3m0/youtube-ripper"
+  "homepage": "https://github.com/captn3m0/youtube-cue"
 }

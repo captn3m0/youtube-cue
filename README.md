@@ -1,37 +1,18 @@
-# youtube-ripper
+# youtube-cue
 
-Helps you download music compilations from youtube.
-Will automatically download the video, split it into chunks,
-and apply proper id3v2 tags on all the files (including cover-art)
+Helps you tag music compilations from youtube by generating a Cue sheet. Use alongside [cuetag.sh](https://command-not-found.com/cuetag.sh).
 
 ## Dependencies
 
-- _Asssumes_ that `youtube-dl` and `ffmpeg` are available in `$PATH`
-- Takes care of everything else
-
-## Opinions
-
-This software has opinions:
-
-- You care about metadata and tagging your music properly
-- All music must have cover art embedded
-- You have `youtube-dl`  and `ffmpeg` already installed
-- I am smart enough to parse youtube descriptions
+- None
 
 ## Installation
 
-    npm install -g youtube-ripper
+    npm install -g youtube-cue
 
 ## Usage
 
-    youtube-ripper "https://www.youtube.com/watch?v=41Y6xov0ppw"
-
-## Configuration
-
-- Pass a cue file instead of using the youtube description
-- `--album-art` Pass custom album art image (Uses the youtube thumbnail by default)
-- `--album-artist` Pass a specific Album Artist. (Picks up the artist from the video by default)
-- `--genre` Pass a specific genre to use. (Picks up from the video by default)
+    youtube-cue "https://www.youtube.com/watch?v=41Y6xov0ppw" file.cue
 
 ## HACKING
 
