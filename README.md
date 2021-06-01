@@ -1,6 +1,6 @@
 # youtube-cue
 
-Helps you tag music compilations from youtube by generating a Cue sheet. Use alongside [cuetag.sh](https://command-not-found.com/cuetag.sh).
+Helps you tag music compilations from youtube by generating a Cue sheet. Use alongside [cuetag.sh](https://command-not-found.com/cuetag.sh), [m4acut](https://github.com/nu774/m4acut), or [mp3splt](https://sourceforge.net/p/mp3splt/) or any other Cue sheet tooling.
 
 ## Dependencies
 
@@ -25,6 +25,22 @@ Helps you tag music compilations from youtube by generating a Cue sheet. Use alo
     Examples
       $ youtube-cue "https://www.youtube.com/watch?v=THzUassmQwE" output.cue
         output.cue saved
+
+## Personal Usage
+
+I have this in my `.bashrc` to download, split, tag, and import albums:
+
+```shell
+function ytdl.album() {
+  cd $(mktemp -d)
+  youtube-dl -f "bestaudio[ext=m4a]" --output "audio.m4a" "$1"
+  youtube-cue --audio-file "audio.m4a" "$1" tracks.cue
+  m4acut -C tracks.cue "audio.m4a" && \
+  trash audio.m4a && \
+  beet import -map .
+}
+```
+
 
 ## HACKING
 
