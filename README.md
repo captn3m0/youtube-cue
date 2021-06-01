@@ -12,14 +12,25 @@ Helps you tag music compilations from youtube by generating a Cue sheet. Use alo
 
 ## Usage
 
-    youtube-cue "https://www.youtube.com/watch?v=41Y6xov0ppw" file.cue
+    Generates Cue sheet from Youtube URL
+
+    Usage
+      $ youtube-cue --audio-file <youtube_url> <output.cue>
+
+    Options
+      --help, Show help
+      --version, Show version
+      --audio-file, Input Audio File
+
+    Examples
+      $ youtube-cue "https://www.youtube.com/watch?v=THzUassmQwE" output.cue
+        output.cue saved
 
 ## HACKING
 
 - If this video does not work on a specific video, please attach the debug log output
 - Pull Requests are welcome that add support for a better parser without breaking the existing tests
 - Please add tests for any new functionality
-- This project follows [Readme Driven Development][rdd], and as such the README may include "Forward Looking Statements"
 
 ## License
 
