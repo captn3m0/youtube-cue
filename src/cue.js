@@ -15,6 +15,7 @@ export function generate(data, outputFile) {
     fs.appendFileSync(outputFile, `  TRACK ${song.track} AUDIO\n`);
     fs.appendFileSync(outputFile, `    TITLE "${song.title}"\n`);
     fs.appendFileSync(outputFile, `    PERFORMER "${song.artist}"\n`);
+    // Cue File is always MINUTES:SECONDS:FRAME, where FRAME is 00
     fs.appendFileSync(outputFile, `    INDEX 01 ${minutes}:${song.start.ss}:00\n`);
   }
 }

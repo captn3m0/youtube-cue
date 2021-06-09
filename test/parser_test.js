@@ -52,7 +52,7 @@ describe('Parser', function() {
   })
 
   it('should ensure ending timestamps for all', function() {
-    assert.deepEqual(big_result[13].end, {calc: 3023, hh:0, mm:50, ss:23, ts: '50:23'})
+    assert.deepEqual(big_result[13].end, {calc: 3023, hh:0, mm:50, ss:23, ts: '00:50:23'})
     // TODO
     assert.deepEqual(big_result[14].end, null)
   })
@@ -75,6 +75,144 @@ describe('Parser', function() {
     57:15 peace
     1:01:10 hoax
     1:04:50 the lakes`)
-    console.log(result)
+
+    assert.deepEqual(result, [
+      {
+        artist: 'Unknown',
+        title: 'the 1',
+        track: 1,
+        start: { ts: '00:0:00', hh: 0, mm: 0, ss: 0, calc: 0 },
+        end: { ts: '00:3:29', hh: 0, mm: 3, ss: 29, calc: 209 },
+        _: { left_text: '', right_text: 'the 1' }
+      },
+      {
+        artist: 'Unknown',
+        title: 'cardigan',
+        track: 2,
+        start: { ts: '00:3:29', hh: 0, mm: 3, ss: 29, calc: 209 },
+        end: { ts: '00:9:30', hh: 0, mm: 9, ss: 30, calc: 570 },
+        _: { left_text: '', right_text: 'cardigan' }
+      },
+      {
+        artist: 'Unknown',
+        title: 'the last great american dynasty',
+        track: 3,
+        start: { ts: '00:9:30', hh: 0, mm: 9, ss: 30, calc: 570 },
+        end: { ts: '00:11:56', hh: 0, mm: 11, ss: 56, calc: 716 },
+        _: { left_text: '', right_text: 'the last great american dynasty' }
+      },
+      {
+        artist: 'Unknown',
+        title: 'exile',
+        track: 4,
+        start: { ts: '00:11:56', hh: 0, mm: 11, ss: 56, calc: 716 },
+        end: { ts: '00:16:46', hh: 0, mm: 16, ss: 46, calc: 1006 },
+        _: { left_text: '', right_text: 'exile' }
+      },
+      {
+        artist: 'Unknown',
+        title: 'my tears ricochet',
+        track: 5,
+        start: { ts: '00:16:46', hh: 0, mm: 16, ss: 46, calc: 1006 },
+        end: { ts: '00:21:03', hh: 0, mm: 21, ss: 3, calc: 1263 },
+        _: { left_text: '', right_text: 'my tears ricochet' }
+      },
+      {
+        artist: 'Unknown',
+        title: 'mirrorball',
+        track: 6,
+        start: { ts: '00:21:03', hh: 0, mm: 21, ss: 3, calc: 1263 },
+        end: { ts: '00:24:35', hh: 0, mm: 24, ss: 35, calc: 1475 },
+        _: { left_text: '', right_text: 'mirrorball' }
+      },
+      {
+        artist: 'Unknown',
+        title: 'seven',
+        track: 7,
+        start: { ts: '00:24:35', hh: 0, mm: 24, ss: 35, calc: 1475 },
+        end: { ts: '00:28:07', hh: 0, mm: 28, ss: 7, calc: 1687 },
+        _: { left_text: '', right_text: 'seven' }
+      },
+      {
+        artist: 'Unknown',
+        title: 'august',
+        track: 8,
+        start: { ts: '00:28:07', hh: 0, mm: 28, ss: 7, calc: 1687 },
+        end: { ts: '00:32:30', hh: 0, mm: 32, ss: 30, calc: 1950 },
+        _: { left_text: '', right_text: 'august' }
+      },
+      {
+        artist: 'Unknown',
+        title: 'this is me trying',
+        track: 9,
+        start: { ts: '00:32:30', hh: 0, mm: 32, ss: 30, calc: 1950 },
+        end: { ts: '00:35:52', hh: 0, mm: 35, ss: 52, calc: 2152 },
+        _: { left_text: '', right_text: 'this is me trying' }
+      },
+      {
+        artist: 'Unknown',
+        title: 'illicit affairs',
+        track: 10,
+        start: { ts: '00:35:52', hh: 0, mm: 35, ss: 52, calc: 2152 },
+        end: { ts: '00:39:05', hh: 0, mm: 39, ss: 5, calc: 2345 },
+        _: { left_text: '', right_text: 'illicit affairs' }
+      },
+      {
+        artist: 'Unknown',
+        title: 'invisible strings',
+        track: 11,
+        start: { ts: '00:39:05', hh: 0, mm: 39, ss: 5, calc: 2345 },
+        end: { ts: '00:43:22', hh: 0, mm: 43, ss: 22, calc: 2602 },
+        _: { left_text: '', right_text: 'invisible strings' }
+      },
+      {
+        artist: 'Unknown',
+        title: 'mad woman',
+        track: 12,
+        start: { ts: '00:43:22', hh: 0, mm: 43, ss: 22, calc: 2602 },
+        end: { ts: '00:49:30', hh: 0, mm: 49, ss: 30, calc: 2970 },
+        _: { left_text: '', right_text: 'mad woman' }
+      },
+      {
+        artist: 'Unknown',
+        title: 'epiphany',
+        track: 13,
+        start: { ts: '00:49:30', hh: 0, mm: 49, ss: 30, calc: 2970 },
+        end: { ts: '00:52:17', hh: 0, mm: 52, ss: 17, calc: 3137 },
+        _: { left_text: '', right_text: 'epiphany' }
+      },
+      {
+        artist: 'Unknown',
+        title: 'betty',
+        track: 14,
+        start: { ts: '00:52:17', hh: 0, mm: 52, ss: 17, calc: 3137 },
+        end: { ts: '00:57:15', hh: 0, mm: 57, ss: 15, calc: 3435 },
+        _: { left_text: '', right_text: 'betty' }
+      },
+      {
+        artist: 'Unknown',
+        title: 'peace',
+        track: 15,
+        start: { ts: '00:57:15', hh: 0, mm: 57, ss: 15, calc: 3435 },
+        end: { ts: '1:01:10', hh: 1, mm: 1, ss: 10, calc: 3670 },
+        _: { left_text: '', right_text: 'peace' }
+      },
+      {
+        artist: 'Unknown',
+        title: 'hoax',
+        track: 16,
+        start: { ts: '1:01:10', hh: 1, mm: 1, ss: 10, calc: 3670 },
+        end: { ts: '1:04:50', hh: 1, mm: 4, ss: 50, calc: 3890 },
+        _: { left_text: '', right_text: 'hoax' }
+      },
+      {
+        artist: 'Unknown',
+        title: 'the lakes',
+        track: 17,
+        start: { ts: '1:04:50', hh: 1, mm: 4, ss: 50, calc: 3890 },
+        end: null,
+        _: { left_text: '', right_text: 'the lakes' }
+      }
+    ]);
   })
 });
