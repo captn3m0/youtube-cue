@@ -1,6 +1,6 @@
 {
   "name": "youtube-cue",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Generates Cue sheet from Youtube URL",
   "main": "index.js",
   "scripts": {
