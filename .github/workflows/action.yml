@@ -1,0 +1,10 @@
+on: push
+name: Main Workflow
+jobs:
+  runNpmStuff:
+    name: Run NPM Stuff
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Run NPM tests
+      uses: anna-money/github-actions-npm@v2
