@@ -1,0 +1,13 @@
+on: push
+name: Main Workflow
+jobs:
+  runNpmStuff:
+    name: Run NPM Stuff
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-node@v2
+      with:
+        node-version: '16'
+    - run: npm install
+    - run: npm test
