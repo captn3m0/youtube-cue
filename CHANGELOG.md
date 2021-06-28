@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 1.0.4 - 2021-06-28
+### Added
+- Support for timestamps in square brackets (#64)
+- Improved formatting for helptext
+### Changed
+- output filename has a default value, and is now optional
+
 ## 1.0.3 - 2021-06-28
 ### Changed
 - Dependency Updates
