@@ -1,4 +1,4 @@
-# youtube-cue
+# youtube-cue ![npm](https://img.shields.io/npm/v/youtube-cue) ![Libraries.io dependency status for latest release](https://img.shields.io/librariesio/release/npm/youtube-cue) ![NPM](https://img.shields.io/npm/l/youtube-cue) ![Snyk Vulnerabilities for npm package](https://img.shields.io/snyk/vulnerabilities/npm/youtube-cue) [![Total Dependencies](https://img.shields.io/badge/Total%20Dependencies-4-orange)](https://www.npmjs.com/package/youtube-cue)
 
 Generate CUE sheet from timestamps in youtube video description.
 
