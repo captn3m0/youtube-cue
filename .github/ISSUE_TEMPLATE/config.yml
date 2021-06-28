@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Need support?
+    url: https://github.com/captn3m0/youtube-cue/discussions/new?category=q-a
+    about: Please ask and answer questions here.
