@@ -9,25 +9,32 @@ let argv = minimist(process.argv.slice(2), {
   string: 'audio-file'
 });
 
-if (argv._.length <2 || argv.help ){
+if (argv._.length <1 || argv.help ){
   console.log(`Usage
-    $ youtube-cue [--audio-file audio.m4a] <youtube_url> <output.cue>
+    $ youtube-cue [--audio-file audio.m4a] <youtube_url> [output_file]
 
   Options
     --help, Show help
-    --audio-file, Input Audio File (optional)
+    --audio-file, Input Audio File (optional) that is written to the CUE sheet
+
+    The default audio file is set to %VIDEOTITLE.m4a
+    The default output file is set to %VIDEOTITLE.cue
+
+    where $VIDEOTITLE is the title of the YouTube video.
 
   Examples
-    $ youtube-cue --audio-file audio.m4a "https://www.youtube.com/watch?v=THzUassmQwE" output.cue
-      output.cue saved
+    $ youtube-cue --audio-file audio.m4a "https://www.youtube.com/watch?v=THzUassmQwE"
+      "T A Y L O R  S W I F T – Folklore [Full album].cue" saved
     $ youtube-cue "https://youtu.be/THzUassmQwE" folklore.cue
       folklore.cue saved`)
 } else {
   let url = argv._[0]
-  let output_file = argv._[1]
 
   ytdl.getInfo(url).then(info=>{
     let audioFile = argv['audio-file']? argv['audio-file'] : `${info.videoDetails.title}.m4a`
+
+    let output_file = argv._[1]? argv._[1] : `${info.videoDetails.title}.cue`
+
     let res = getArtistTitle(info.videoDetails.title,{
       defaultArtist: "Unknown Artist",
       defaultTitle: info.videoDetails.title
@@ -36,5 +43,6 @@ if (argv._.length <2 || argv.help ){
     artist = (info.videoDetails.media ? info.videoDetails.media.artist : artist)
     let tracks = parse(info.videoDetails.description, {artist})
     generate({tracks, artist, audioFile, album}, output_file)
+    console.log(`"${output_file}" saved`)
   })
 }
