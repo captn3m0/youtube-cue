@@ -6,10 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
-## 1.0.2 - 2020-06-10
+## 1.0.3 - 2021-06-28
+### Changed
+- Dependency Updates
+
+## 1.0.2 - 2021-06-10
 ### Changed
 - Switches from `mocha` to `minimist` to parse arguments. Now down to 9 total (recursive) dependencies.
 
-## 1.01 - 2020-06-10
+## 1.01 - 2021-06-10
 ### Changed
 - Dependency Updates
