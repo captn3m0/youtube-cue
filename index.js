@@ -11,15 +11,17 @@ let argv = minimist(process.argv.slice(2), {
 
 if (argv._.length <2 || argv.help ){
   console.log(`Usage
-    $ youtube-cue --audio-file <youtube_url> <output.cue>
+    $ youtube-cue [--audio-file audio.m4a] <youtube_url> <output.cue>
 
   Options
     --help, Show help
-    --audio-file, Input Audio File
+    --audio-file, Input Audio File (optional)
 
   Examples
-    $ youtube-cue "https://www.youtube.com/watch?v=THzUassmQwE" output.cue
-      output.cue saved`)
+    $ youtube-cue --audio-file audio.m4a "https://www.youtube.com/watch?v=THzUassmQwE" output.cue
+      output.cue saved
+    $ youtube-cue "https://youtu.be/THzUassmQwE" folklore.cue
+      folklore.cue saved`)
 } else {
   let url = argv._[0]
   let output_file = argv._[1]
