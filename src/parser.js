@@ -1,8 +1,10 @@
 /*jshint esversion: 6 */
 /**
- * https://regex101.com/r/XwBLUH/1/
+ * https://regex101.com/r/XwBLUH/2
  * This regex parses out the following groups:
- * tracknumber at the start of the line, optional
+ * trackl track number at the left of the timestamp, optional and optionally enclosed in square brackets or parantheses
+ * trackr track number at the  of the timestamp, optional and optionally enclosed in square brackets or parantheses
+ *
  * start_ts: complete track start timestamp (hh:mm:ss) (mm:ss is minimum)
  * start_hh: starting hh, optional
  * start_mm: starting minutes, required
@@ -13,12 +15,12 @@
  * end:mm: track end minute, optional
  * end:ss: track end seconds, optional
  *
- * text_1: text found to the left of the timestamp
- * text_2: text found to the right of the timestamp
+ * text_1: text found to the left of the timestamp, ignoring the track number
+ * text_2: text found to the right of the timestamp, ignoring the track number
  *
  * It is suggested to check their lengths and pick one to parse as the Track Title
  */
-const TS_REGEX = /^((?<track>\d{1,3})\.)* *(?<text_1>.*?) *(?<start_ts>((?<start_hh>\d{1,2}):)?(?<start_mm>\d{1,2}):(?<start_ss>\d{1,2})) *-? *(?<end_ts>(?<end_hh>\d{1,2}:)?(?<end_mm>\d{1,2}):(?<end_ss>\d{1,2}))? *(?<text_2>.*?)$/;
+const TS_REGEX = /^((?<trackl>\d{1,3})\.)? *(?<text_1>.*?) *[\(\[]?(?<start_ts>((?<start_hh>\d{1,2}):)?(?<start_mm>\d{1,2}):(?<start_ss>\d{1,2})) *-? *[\)\]]?(?<end_ts>(?<end_hh>\d{1,2}:)?(?<end_mm>\d{1,2}):(?<end_ss>\d{1,2}))? *((?<trackr>\d{1,3})\.)? *(?<text_2>.*?)$/;
 import getArtistTitle from 'get-artist-title'
 var _options = {};
 
@@ -32,8 +34,9 @@ var filterTimestamp = function(line) {
 
 var firstPass = function(line) {
   let matches = line.match(TS_REGEX);
+  let track = matches.groups['trackl'] ? +matches.groups['trackl'] : (matches.groups['trackr'] ? +matches.groups['trackr'] : null)
   return {
-    track: matches.groups['track'] ? +matches.groups['track'] : null,
+    track: track,
     start: {
       ts: matches.groups['start_ts'].length<6 ? `00:${matches.groups['start_ts']}` : matches.groups['start_ts'],
       hh: matches.groups['start_hh'] ? +matches.groups['start_hh'] : 0,
@@ -63,10 +66,9 @@ var calcTimestamp = function(obj) {
 }
 
 var parseTitle = function(obj) {
-  let title = obj._.left_text.length > obj._.right_text.length
+  obj.title = obj._.left_text.length > obj._.right_text.length
     ? obj._.left_text : obj._.right_text;
-
-   return Object.assign({title: title}, obj)
+  return obj
 }
 
 var parseArtist = function(obj) {
@@ -74,7 +76,9 @@ var parseArtist = function(obj) {
     defaultArtist: _options.artist,
     defaultTitle: obj.title
   });
-  return Object.assign({ artist: artist, title: title }, obj);
+  obj.artist = artist
+  obj.title = title
+  return obj
 };
 
 var addTrack = function(obj, index) {
