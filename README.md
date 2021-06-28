@@ -31,15 +31,20 @@ For all of the above, there are better tools available, such as [youtube-dl](htt
 
 You need to pass 2 parameters, a Youtube URL and a output CUE filename. YouTube short URLs (`youtu.be`) are accepted. You can additionally pass a `audio-file` argument which is used for the [`FILE` specified in the CUE file][cuefile].
 
-    $ youtube-cue [--audio-file audio.m4a] <youtube_url> <output.cue>
+    youtube-cue [--audio-file audio.m4a] <youtube_url> [output_file]
 
     Options
       --help, Show help
-      --audio-file, Input Audio File (optional)
+      --audio-file, Input Audio File (optional) that is written to the CUE sheet
+
+      The default audio file is set to %VIDEOTITLE.m4a
+      The default output file is set to %VIDEOTITLE.cue
+
+      where $VIDEOTITLE is the title of the YouTube video.
 
     Examples
-      $ youtube-cue --audio-file audio.m4a "https://www.youtube.com/watch?v=THzUassmQwE" output.cue
-        output.cue saved
+      $ youtube-cue --audio-file audio.m4a "https://www.youtube.com/watch?v=THzUassmQwE"
+        "T A Y L O R  S W I F T – Folklore [Full album].cue" saved
       $ youtube-cue "https://youtu.be/THzUassmQwE" folklore.cue
         folklore.cue saved
 
