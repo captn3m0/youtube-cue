@@ -76,6 +76,20 @@ describe("Parser", function() {
       })
   });
 
+  it("should parse durations when given", function() {
+    let result = parse(`1. Artist - Title - 6:19
+2. Another Artist - Another Title - 6:59
+3. Yet Another Artist - Yet another title - 5:12`)
+    assert.deepEqual(result[0], {
+        artist: "Artist",
+        title: "Title",
+        track: 1,
+        start: { ts: "00:00:00", hh: 0, mm: 0, ss: 0, calc: 0 },
+        end: { ts: "00:06:19", hh: 0, mm: 6, ss: 19, calc: 379 },
+        _: { left_text: "Artist - Title", right_text: "" },
+      })
+  });
+
   it("should parse taylor swift", function() {
     let result = parse(`0:00 the 1
     3:29 cardigan
