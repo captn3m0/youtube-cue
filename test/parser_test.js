@@ -65,46 +65,74 @@ describe("Parser", function() {
 
   it("should parse timestamps with square brackets", function() {
     let result = parse(`[00:00:00] 1. Steve Kroeger x Skye Holland - Through The Dark
-      [00:02:53] 2. Gabri Ponte x Jerome - Lonely `)
+      [00:02:53] 2. Gabri Ponte x Jerome - Lonely `);
     assert.deepEqual(result[0], {
-        artist: "Steve Kroeger x Skye Holland",
-        title: "Through The Dark",
-        track: 1,
-        start: { ts: "00:00:00", hh: 0, mm: 0, ss: 0, calc: 0 },
-        end: { ts: "00:02:53", hh: 0, mm: 2, ss: 53, calc: 173 },
-        _: { left_text: "", right_text: "Steve Kroeger x Skye Holland - Through The Dark" },
-      })
+      artist: "Steve Kroeger x Skye Holland",
+      title: "Through The Dark",
+      track: 1,
+      start: { ts: "00:00:00", hh: 0, mm: 0, ss: 0, calc: 0 },
+      end: { ts: "00:02:53", hh: 0, mm: 2, ss: 53, calc: 173 },
+      _: {
+        left_text: "",
+        right_text: "Steve Kroeger x Skye Holland - Through The Dark",
+      },
+    });
   });
 
   it("should parse durations when given", function() {
     let result = parse(`1. Artist - Title 6:19
 2. Another Artist - Another Title 6:59
-3. Yet Another Artist - Yet another title 5:12`)
+3. Yet Another Artist - Yet another title 5:12`);
     assert.deepEqual(result[0], {
-        artist: "Artist",
-        title: "Title",
-        track: 1,
-        start: { ts: "00:00:00", hh: 0, mm: 0, ss: 0, calc: 0 },
-        end: { ts: "00:06:19", hh: 0, mm: 6, ss: 19, calc: 379 },
-        _: { left_text: "Artist - Title", right_text: "" },
-      })
+      artist: "Artist",
+      title: "Title",
+      track: 1,
+      start: { ts: "00:00:00", hh: 0, mm: 0, ss: 0, calc: 0 },
+      end: { ts: "00:06:19", hh: 0, mm: 6, ss: 19, calc: 379 },
+      _: { left_text: "Artist - Title", right_text: "" },
+    });
 
     assert.deepEqual(result[1], {
-        artist: "Another Artist",
-        title: "Another Title",
-        track: 2,
-        start: { ts: "00:06:19", hh: 0, mm: 6, ss: 19, calc: 379 },
-        end: { ts: "00:13:18", hh: 0, mm: 13, ss: 18, calc: 798 },
-        _: { left_text: "Another Artist - Another Title", right_text: "" },
-      })
+      artist: "Another Artist",
+      title: "Another Title",
+      track: 2,
+      start: { ts: "00:06:19", hh: 0, mm: 6, ss: 19, calc: 379 },
+      end: { ts: "00:13:18", hh: 0, mm: 13, ss: 18, calc: 798 },
+      _: { left_text: "Another Artist - Another Title", right_text: "" },
+    });
     assert.deepEqual(result[2], {
-        artist: "Yet Another Artist",
-        title: "Yet another title",
-        track: 3,
-        start: { ts: "00:13:18", hh: 0, mm: 13, ss: 18, calc: 798 },
-        end: { ts: "00:18:30", hh: 0, mm: 18, ss: 30, calc: 1110 },
-        _: { left_text: "Yet Another Artist - Yet another title", right_text: "" },
-      })
+      artist: "Yet Another Artist",
+      title: "Yet another title",
+      track: 3,
+      start: { ts: "00:13:18", hh: 0, mm: 13, ss: 18, calc: 798 },
+      end: { ts: "00:18:30", hh: 0, mm: 18, ss: 30, calc: 1110 },
+      _: {
+        left_text: "Yet Another Artist - Yet another title",
+        right_text: "",
+      },
+    });
+  });
+
+  it("should parse durations as timestamps when forced", function() {
+    let result = parse(
+      `1. Artist - Title 5:00
+2. Another Artist - Another Title 4:20`,
+      { timestampsOnly: true }
+    );
+    assert.deepEqual(result[0].end, {
+      ts: "00:4:20",
+      hh: 0,
+      mm: 4,
+      ss: 20,
+      calc: 260,
+    });
+    assert.deepEqual(result[1].start, {
+      ts: "00:4:20",
+      hh: 0,
+      mm: 4,
+      ss: 20,
+      calc: 260,
+    });
   });
 
   it("should parse taylor swift", function() {

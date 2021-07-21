@@ -128,6 +128,9 @@ var timeToObject = function(obj) {
   return obj;
 };
 
+// Instead of timestamps, some tracklists use durations
+// If durations are provided, use them to re-calculate
+// the starting and ending timestamps
 var fixDurations = function(list) {
   for (let i in list) {
     if (i == 0) {
@@ -149,7 +152,7 @@ var fixDurations = function(list) {
   }
 };
 
-export function parse(text, options = { artist: "Unknown" }) {
+export function parse(text, options = { artist: "Unknown", timestampsOnly : false }) {
   _options = options;
   let durations = false;
   let result = text
@@ -158,18 +161,21 @@ export function parse(text, options = { artist: "Unknown" }) {
     .map(firstPass)
     .map(calcTimestamp);
 
-  result.forEach((current, index, list) => {
-    if (index > 0) {
-      let previous = list[index - 1];
-      if (current.start.calc < previous.start.calc) {
-        durations = true;
+  if (options.timestampsOnly == false) {
+    // If our timestamps are not in increasing order
+    // Assume that we've been given a duration list instead
+    result.forEach((current, index, list) => {
+      if (index > 0) {
+        let previous = list[index - 1];
+        if (current.start.calc < previous.start.calc) {
+          durations = true;
+        }
       }
-    }
-  });
+    });
 
-  if (durations) {
-    // console.error("Detected durations instead of timestamps. \nIf this is incorrect, pass the --timestamps-only flag and create an issue at \nhttps://github.com/captn3m0/youtube-cue/issues/new/choose")
-    fixDurations(result);
+    if (durations) {
+      fixDurations(result);
+    }
   }
 
   return result

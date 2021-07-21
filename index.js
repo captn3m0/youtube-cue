@@ -22,6 +22,8 @@ if (argv._.length <1 || argv.help ){
 
     where $VIDEOTITLE is the title of the YouTube video.
 
+    --timestamps-only Do not try to parse the timestamps as track durations
+
   Examples
     $ youtube-cue --audio-file audio.m4a "https://www.youtube.com/watch?v=THzUassmQwE"
       "T A Y L O R  S W I F T – Folklore [Full album].cue" saved
@@ -35,13 +37,15 @@ if (argv._.length <1 || argv.help ){
 
     let output_file = argv._[1]? argv._[1] : `${info.videoDetails.title}.cue`
 
+    let timestampsOnly = argv['timestamps-only']? argv['timestamps-only'] : false;
+
     let res = getArtistTitle(info.videoDetails.title,{
       defaultArtist: "Unknown Artist",
       defaultTitle: info.videoDetails.title
     });
     let [artist, album] = res
     artist = (info.videoDetails.media ? info.videoDetails.media.artist : artist)
-    let tracks = parse(info.videoDetails.description, {artist})
+    let tracks = parse(info.videoDetails.description, {artist,timestampsOnly})
     generate({tracks, artist, audioFile, album}, output_file)
     console.log(`"${output_file}" saved`)
   })
