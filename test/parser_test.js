@@ -5,10 +5,10 @@ import { parse } from "../src/parser.js";
 
 const TEXT = `
 00:40 The Coders - Hello World
-12:23 This is not the end
+1:00 This is not the end
 Something else in the middle
-1:23:11 Not the last song
-01.   Screens     0:00 - 5:40
+1:23 Not the last song
+01.   Screens     1:40 - 5:40
 02.   Inharmonious Slog     5:40 - 10:11
 03.   The Everyday Push     10:11 - 15:46
 04.   Storm     15:46 - 19:07
@@ -77,9 +77,9 @@ describe("Parser", function() {
   });
 
   it("should parse durations when given", function() {
-    let result = parse(`1. Artist - Title - 6:19
-2. Another Artist - Another Title - 6:59
-3. Yet Another Artist - Yet another title - 5:12`)
+    let result = parse(`1. Artist - Title 6:19
+2. Another Artist - Another Title 6:59
+3. Yet Another Artist - Yet another title 5:12`)
     assert.deepEqual(result[0], {
         artist: "Artist",
         title: "Title",
@@ -87,6 +87,23 @@ describe("Parser", function() {
         start: { ts: "00:00:00", hh: 0, mm: 0, ss: 0, calc: 0 },
         end: { ts: "00:06:19", hh: 0, mm: 6, ss: 19, calc: 379 },
         _: { left_text: "Artist - Title", right_text: "" },
+      })
+
+    assert.deepEqual(result[1], {
+        artist: "Another Artist",
+        title: "Another Title",
+        track: 2,
+        start: { ts: "00:06:19", hh: 0, mm: 6, ss: 19, calc: 379 },
+        end: { ts: "00:13:18", hh: 0, mm: 13, ss: 18, calc: 798 },
+        _: { left_text: "Another Artist - Another Title", right_text: "" },
+      })
+    assert.deepEqual(result[2], {
+        artist: "Yet Another Artist",
+        title: "Yet another title",
+        track: 3,
+        start: { ts: "00:13:18", hh: 0, mm: 13, ss: 18, calc: 798 },
+        end: { ts: "00:18:30", hh: 0, mm: 18, ss: 30, calc: 1110 },
+        _: { left_text: "Yet Another Artist - Yet another title", right_text: "" },
       })
   });
 
