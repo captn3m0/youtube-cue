@@ -117,7 +117,7 @@ describe("Parser", function() {
     let result = parse(
       `1. Artist - Title 5:00
 2. Another Artist - Another Title 4:20`,
-      { timestampsOnly: true }
+      { forceTimestamps: true }
     );
     assert.deepEqual(result[0].end, {
       ts: "00:4:20",
@@ -132,6 +132,54 @@ describe("Parser", function() {
       mm: 4,
       ss: 20,
       calc: 260,
+    });
+  });
+
+  it("should parse timestamps as durations when forced", function() {
+    let result = parse(
+      `1. Artist - Title 1:00
+2. Another Artist - Another Title 1:15`,
+      { forceDurations: true }
+    );
+    assert.deepEqual(result[0], {
+      track: 1,
+      _: { left_text: "Artist - Title", right_text: "" },
+      title: "Title",
+      artist: "Artist",
+      end: {
+        ts: "00:01:00",
+        hh: 0,
+        mm: 1,
+        ss: 0,
+        calc: 60,
+      },
+      start: {
+        ts: "00:00:00",
+        hh: 0,
+        mm: 0,
+        ss: 0,
+        calc: 0,
+      },
+    });
+    assert.deepEqual(result[1], {
+      track: 2,
+      _: { left_text: "Another Artist - Another Title", right_text: "" },
+      title: "Another Title",
+      artist: "Another Artist",
+      start: {
+        ts: "00:01:00",
+        hh: 0,
+        mm: 1,
+        ss: 0,
+        calc: 60,
+      },
+      end: {
+        ts: "00:02:15",
+        hh: 0,
+        mm: 2,
+        ss: 15,
+        calc: 135,
+      },
     });
   });
 

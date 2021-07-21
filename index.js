@@ -4,6 +4,7 @@ import getArtistTitle from 'get-artist-title'
 import {parse} from './src/parser.js'
 import {generate} from './src/cue.js'
 import minimist from 'minimist'
+import exit from 'process'
 
 let argv = minimist(process.argv.slice(2), {
   string: 'audio-file'
@@ -23,6 +24,10 @@ if (argv._.length <1 || argv.help ){
     where $VIDEOTITLE is the title of the YouTube video.
 
     --timestamps-only Do not try to parse the timestamps as track durations
+    --timestamps-are-durations Parse timestamps as durations
+
+    The above 2 are only needed to force behaviour in very specific edge cases, they should
+    not be required for most files.
 
   Examples
     $ youtube-cue --audio-file audio.m4a "https://www.youtube.com/watch?v=THzUassmQwE"
@@ -37,7 +42,14 @@ if (argv._.length <1 || argv.help ){
 
     let output_file = argv._[1]? argv._[1] : `${info.videoDetails.title}.cue`
 
-    let timestampsOnly = argv['timestamps-only']? argv['timestamps-only'] : false;
+    let forceTimestamps = argv['timestamps-only']? argv['timestamps-only'] : false;
+
+    let forceDurations = argv['timestamps-are-durations']? argv['timestamps-are-durations'] : false;
+
+    if (forceTimestamps && forceDurations) {
+      console.error("You can't pass both --timestamps-only and timestamps-are-durations");
+      exit(1)
+    }
 
     let res = getArtistTitle(info.videoDetails.title,{
       defaultArtist: "Unknown Artist",
@@ -45,7 +57,7 @@ if (argv._.length <1 || argv.help ){
     });
     let [artist, album] = res
     artist = (info.videoDetails.media ? info.videoDetails.media.artist : artist)
-    let tracks = parse(info.videoDetails.description, {artist,timestampsOnly})
+    let tracks = parse(info.videoDetails.description, {artist, forceTimestamps, forceDurations})
     generate({tracks, artist, audioFile, album}, output_file)
     console.log(`"${output_file}" saved`)
   })

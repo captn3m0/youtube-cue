@@ -138,7 +138,7 @@ var fixDurations = function(list) {
       list[i].start.hh = list[i].start.mm = list[i].start.ss = 0;
       // And end at the right time
       list[i].end = { calc: list[i].start.calc };
-      list[i].start.calc = 0
+      list[i].start.calc = 0;
     } else {
       // All the others tracks start at the end of the previous one
       // And end at start time + duration
@@ -152,7 +152,10 @@ var fixDurations = function(list) {
   }
 };
 
-export function parse(text, options = { artist: "Unknown", timestampsOnly : false }) {
+export function parse(
+  text,
+  options = { artist: "Unknown", forceTimestamps: false, forceDurations: false }
+) {
   _options = options;
   let durations = false;
   let result = text
@@ -161,7 +164,7 @@ export function parse(text, options = { artist: "Unknown", timestampsOnly : fals
     .map(firstPass)
     .map(calcTimestamp);
 
-  if (options.timestampsOnly == false) {
+  if (!options.forceTimestamps) {
     // If our timestamps are not in increasing order
     // Assume that we've been given a duration list instead
     result.forEach((current, index, list) => {
@@ -173,7 +176,7 @@ export function parse(text, options = { artist: "Unknown", timestampsOnly : fals
       }
     });
 
-    if (durations) {
+    if (durations || options.forceDurations == true) {
       fixDurations(result);
     }
   }
