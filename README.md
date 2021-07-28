@@ -37,16 +37,19 @@ You need to pass 2 parameters, a Youtube URL and a output CUE filename. YouTube 
       --help, Show help
       --audio-file, Input Audio File (optional) that is written to the CUE sheet
 
-      The default audio file is set to %VIDEOTITLE.m4a
-      The default output file is set to %VIDEOTITLE.cue
+    The default audio file is set to %VIDEOTITLE.m4a
+    The default output file is set to %VIDEOTITLE.cue
 
-      where $VIDEOTITLE is the title of the YouTube video.
+    where $VIDEOTITLE is the title of the YouTube video.
 
-    --timestamps-only Do not try to parse the timestamps as track durations
-    --timestamps-are-durations Parse timestamps as durations
+    Generally the parser detects whether numbers are positional timestamps or track durations.
+    To enforce a desired interpretation you can use these flags:
 
-    The above 2 are only needed to force behaviour in very specific edge cases, they should
-    not be required for most files.
+    --timestamps Parse as positional timestamps (relative to the start of the playlist)
+    --durations Parse as track durations
+
+    The above 2 are only needed to force behaviour in
+    very specific edge cases, they should not be required for most files.
 
     Examples
       $ youtube-cue --audio-file audio.m4a "https://www.youtube.com/watch?v=THzUassmQwE"

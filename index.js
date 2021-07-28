@@ -23,8 +23,11 @@ if (argv._.length <1 || argv.help ){
 
     where $VIDEOTITLE is the title of the YouTube video.
 
-    --timestamps-only Do not try to parse the timestamps as track durations
-    --timestamps-are-durations Parse timestamps as durations
+    Generally the parser detects whether numbers are positional timestamps or track durations.
+    To enforce a desired interpretation you can use these flags:
+
+    --timestamps Parse as positional timestamps (relative to the start of the playlist)
+    --durations Parse as track durations
 
     The above 2 are only needed to force behaviour in very specific edge cases, they should
     not be required for most files.
@@ -42,12 +45,12 @@ if (argv._.length <1 || argv.help ){
 
     let output_file = argv._[1]? argv._[1] : `${info.videoDetails.title}.cue`
 
-    let forceTimestamps = argv['timestamps-only']? argv['timestamps-only'] : false;
+    let forceTimestamps = argv['timestamps']? argv['timestamps'] : false;
 
-    let forceDurations = argv['timestamps-are-durations']? argv['timestamps-are-durations'] : false;
+    let forceDurations = argv['durations']? argv['durations'] : false;
 
     if (forceTimestamps && forceDurations) {
-      console.error("You can't pass both --timestamps-only and timestamps-are-durations");
+      console.error("You can't pass both --timestamps and durations");
       exit(1)
     }
 
