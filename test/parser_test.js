@@ -113,6 +113,37 @@ describe("Parser", function() {
     });
   });
 
+  it("should parse as timestamps if first timestamp is 00:00", function() {
+    let result = parse(`1. Artist - Title 00:00
+2. Another Artist - Another Title 01:00
+3. Yet Another Artist - Yet another title 02:00`);
+    assert.deepEqual(result[0], {
+      artist: "Artist",
+      title: "Title",
+      track: 1,
+      start: { ts: "00:00:00", hh: 0, mm: 0, ss: 0, calc: 0 },
+      end: { ts: "00:01:00", hh: 0, mm: 1, ss: 0, calc: 60 },
+      _: { left_text: "Artist - Title", right_text: "" },
+    });
+
+    assert.deepEqual(result[1], {
+      artist: "Another Artist",
+      title: "Another Title",
+      track: 2,
+      end: { ts: "00:02:00", hh: 0, mm: 2, ss: 0, calc: 120 },
+      start: { ts: "00:01:00", hh: 0, mm: 1, ss: 0, calc: 60 },
+      _: { left_text: "Another Artist - Another Title", right_text: "" },
+    });
+    assert.deepEqual(result[2], {
+      artist: "Yet Another Artist",
+      title: "Yet another title",
+      track: 3,
+      end: null,
+      start: { ts: "00:02:00", hh: 0, mm: 2, ss: 0, calc: 120 },
+      _: { left_text: "Yet Another Artist - Yet another title", right_text: "" },
+    });
+  });
+
   it("should parse durations as timestamps when forced", function() {
     let result = parse(
       `1. Artist - Title 5:00

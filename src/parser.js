@@ -167,14 +167,16 @@ export function parse(
   if (!options.forceTimestamps) {
     // If our timestamps are not in increasing order
     // Assume that we've been given a duration list instead
-    result.forEach((current, index, list) => {
-      if (index > 0) {
-        let previous = list[index - 1];
-        if (current.start.calc < previous.start.calc) {
-          durations = true;
+    if (result[0].start.calc!=0) {
+      result.forEach((current, index, list) => {
+        if (index > 0) {
+          let previous = list[index - 1];
+          if (current.start.calc < previous.start.calc) {
+            durations = true;
+          }
         }
-      }
-    });
+      });
+    }
 
     if (durations || options.forceDurations == true) {
       fixDurations(result);
