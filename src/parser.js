@@ -20,7 +20,8 @@
  *
  * It is suggested to check their lengths and pick one to parse as the Track Title
  */
-const TS_REGEX = /^((?<trackl>\d{1,3})\.)? *(?<text_1>.*?) *[\(\[]?(?<start_ts>((?<start_hh>\d{1,2}):)?(?<start_mm>\d{1,2}):(?<start_ss>\d{1,2})) *-? *[\)\]]?(?<end_ts>(?<end_hh>\d{1,2}:)?(?<end_mm>\d{1,2}):(?<end_ss>\d{1,2}))? *((?<trackr>\d{1,3})\.)? *(?<text_2>.*?)$/;
+const TS_REGEX =
+  /^((?<trackl>\d{1,3})\.)? *(?<text_1>.*?) *[\(\[]?(?<start_ts>((?<start_hh>\d{1,2}):)?(?<start_mm>\d{1,2}):(?<start_ss>\d{1,2})) *-? *[\)\]]?(?<end_ts>(?<end_hh>\d{1,2}:)?(?<end_mm>\d{1,2}):(?<end_ss>\d{1,2}))? *((?<trackr>\d{1,3})\.)? *(?<text_2>.*?)$/;
 import getArtistTitle from "get-artist-title";
 var _options = {};
 
@@ -30,12 +31,12 @@ function convertTime(h, m, s) {
 }
 
 // Only picks out lines which have a timestamp in them
-var filterTimestamp = function(line) {
+var filterTimestamp = function (line) {
   return TS_REGEX.test(line);
 };
 
 // Parse each line as per the regex
-var firstPass = function(line) {
+var firstPass = function (line) {
   let matches = line.match(TS_REGEX);
   let track = matches.groups["trackl"]
     ? +matches.groups["trackl"]
@@ -71,7 +72,7 @@ var firstPass = function(line) {
 };
 
 // Add a calc attribute with total seconds
-var calcTimestamp = function(obj) {
+var calcTimestamp = function (obj) {
   if (obj.end) {
     obj.end.calc = convertTime(obj.end.hh, obj.end.mm, obj.end.ss);
   }
@@ -80,7 +81,7 @@ var calcTimestamp = function(obj) {
 };
 
 // Pick the longer "text" from left or right side.
-var parseTitle = function(obj) {
+var parseTitle = function (obj) {
   obj.title =
     obj._.left_text.length > obj._.right_text.length
       ? obj._.left_text
@@ -89,7 +90,7 @@ var parseTitle = function(obj) {
 };
 
 // Parse the text as the title/artist
-var parseArtist = function(obj) {
+var parseArtist = function (obj) {
   let [artist, title] = getArtistTitle(obj.title, {
     defaultArtist: _options.artist,
     defaultTitle: obj.title,
@@ -100,7 +101,7 @@ var parseArtist = function(obj) {
 };
 
 // If track numbers are not present, add them accordingly
-var addTrack = function(obj, index) {
+var addTrack = function (obj, index) {
   if (obj.track == null) {
     obj.track = index + 1;
   }
@@ -108,7 +109,7 @@ var addTrack = function(obj, index) {
 };
 
 // Add "end" timestamps as next start timestamps
-var addEnd = function(obj, index, arr) {
+var addEnd = function (obj, index, arr) {
   if (!obj.end) {
     if (arr.length != index + 1) {
       let next = arr[index + 1];
@@ -119,7 +120,7 @@ var addEnd = function(obj, index, arr) {
   return obj;
 };
 
-var timeToObject = function(obj) {
+var timeToObject = function (obj) {
   let d = new Date(obj.calc * 1000).toISOString();
   obj.hh = +d.substr(11, 2);
   obj.mm = +d.substr(14, 2);
@@ -131,7 +132,7 @@ var timeToObject = function(obj) {
 // Instead of timestamps, some tracklists use durations
 // If durations are provided, use them to re-calculate
 // the starting and ending timestamps
-var fixDurations = function(list) {
+var fixDurations = function (list) {
   for (let i in list) {
     if (i == 0) {
       // Set the first one to start of track.
@@ -167,7 +168,7 @@ export function parse(
   if (!options.forceTimestamps) {
     // If our timestamps are not in increasing order
     // Assume that we've been given a duration list instead
-    if (result[0].start.calc!=0) {
+    if (result[0].start.calc != 0) {
       result.forEach((current, index, list) => {
         if (index > 0) {
           let previous = list[index - 1];
@@ -183,9 +184,5 @@ export function parse(
     }
   }
 
-  return result
-    .map(parseTitle)
-    .map(parseArtist)
-    .map(addTrack)
-    .map(addEnd);
+  return result.map(parseTitle).map(parseArtist).map(addTrack).map(addEnd);
 }
