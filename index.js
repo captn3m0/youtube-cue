@@ -5,12 +5,18 @@ import { parse } from "./src/parser.js";
 import { generate } from "./src/cue.js";
 import minimist from "minimist";
 import exit from "process";
+import updateNotifier from "update-notifier";
+import pkg from "./src/package.js";
+
+updateNotifier({ pkg }).notify();
 
 let argv = minimist(process.argv.slice(2), {
   string: "audio-file",
 });
 
-if (argv._.length < 1 || argv.help) {
+if (argv.version) {
+  console.log(pkg.version);
+} else if (argv._.length < 1 || argv.help) {
   console.log(`Usage
     $ youtube-cue [--audio-file audio.m4a] <youtube_url> [output_file]
 
@@ -31,6 +37,8 @@ if (argv._.length < 1 || argv.help) {
 
     The above 2 are only needed to force behaviour in very specific edge cases, they should
     not be required for most files.
+
+    --version Print version
 
   Examples
     $ youtube-cue --audio-file audio.m4a "https://www.youtube.com/watch?v=THzUassmQwE"
