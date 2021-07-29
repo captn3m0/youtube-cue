@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Added
+- `--version` is now supported
+- An update notification is shown if the package isn't latest.
+
 ## 1.0.6 - 2021-07-29
 
 ### Added
