@@ -4,13 +4,15 @@
   "description": "Generates Cue sheet from Youtube URL",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "lint": "prettier --check ."
   },
   "bin": "index.js",
   "author": "Nemo <npm@captnemo.in>",
   "license": "MIT",
   "devDependencies": {
-    "mocha": "^9.0.0"
+    "mocha": "^9.0.0",
+    "prettier": "^2.3.2"
   },
   "dependencies": {
     "console-log-level": "^1.4.1",
