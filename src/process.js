@@ -1,5 +1,8 @@
 import fs from 'fs';
 import { parse } from './parser.js';
+import getArtistTitle from 'get-artist-title';
+import ytdl from 'ytdl-core';
+import exit from 'process';
 
 const DEFAULT_AUDIO_FILE = 'audio.m4a';
 const DEFAULT_ARTIST = 'Unknown Artist';

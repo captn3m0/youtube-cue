@@ -1,9 +1,8 @@
 #!/usr/bin/env node
 import ytdl from 'ytdl-core';
-import getArtistTitle from 'get-artist-title';
+import fs from 'fs';
 import { generate } from './src/cue.js';
 import minimist from 'minimist';
-import exit from 'process';
 import updateNotifier from 'update-notifier';
 import pkg from './src/package.js';
 import { processFile, processYoutube } from './src/process.js';
@@ -59,12 +58,21 @@ if (argv.version) {
       "output.cue" saved`);
 } else {
   let urlOrFile = argv._[0];
+  let r;
 
   if (fs.existsSync(urlOrFile)) {
-    let r = processFile(urlOrFile, argv);
+    r = processFile(urlOrFile, argv);
   } else {
-    let r = processYoutube(urlOrFile, argv);
+    r = await processYoutube(urlOrFile, argv);
   }
-  generate({ r.tracks, r.artist, r.audioFile, r.album }, r.outputFile);
-  console.log(`"${outputFile}" saved`);
+  generate(
+    {
+      tracks: r.tracks,
+      artist: r.artist,
+      audioFile: r.audioFile,
+      album: r.album,
+    },
+    r.outputFile
+  );
+  console.log(`"${r.outputFile}" saved`);
 }
