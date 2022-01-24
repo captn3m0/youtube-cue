@@ -11,7 +11,7 @@
   "author": "Nemo <npm@captnemo.in>",
   "license": "MIT",
   "devDependencies": {
-    "mocha": "^9.0.0",
+    "mocha": "^9.2.0",
     "prettier": "^2.3.2"
   },
   "dependencies": {
