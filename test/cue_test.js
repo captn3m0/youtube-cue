@@ -6,23 +6,25 @@ import fs from "fs";
 const DATA = {
   artist: "Dumbledore",
   album: "Curse of the Elder Wand",
-  audioFile: 'audio.m4a',
-  tracks: [{
-    artist: "Unknown",
-    title: "the 1",
-    track: 1,
-    start: { ts: "00:00:00", hh: 0, mm: 0, ss: 0, calc: 0 },
-    end: { ts: "00:3:9", hh: 0, mm: 3, ss: 9, calc: 189 },
-    _: { left_text: "", right_text: "the 1" },
-  },
-  {
-    artist: "Unknown",
-    title: "cardigan",
-    track: 2,
-    start: { ts: "00:3:09", hh: 0, mm: 3, ss: 9, calc: 189 },
-    end: { ts: "00:9:30", hh: 0, mm: 9, ss: 30, calc: 570 },
-    _: { left_text: "", right_text: "cardigan" },
-  }]
+  audioFile: "audio.m4a",
+  tracks: [
+    {
+      artist: "Unknown",
+      title: "the 1",
+      track: 1,
+      start: { ts: "00:00:00", hh: 0, mm: 0, ss: 0, calc: 0 },
+      end: { ts: "00:3:9", hh: 0, mm: 3, ss: 9, calc: 189 },
+      _: { left_text: "", right_text: "the 1" },
+    },
+    {
+      artist: "Unknown",
+      title: "cardigan",
+      track: 2,
+      start: { ts: "00:3:09", hh: 0, mm: 3, ss: 9, calc: 189 },
+      end: { ts: "00:9:30", hh: 0, mm: 9, ss: 30, calc: 570 },
+      _: { left_text: "", right_text: "cardigan" },
+    },
+  ],
 };
 
 describe("CUE", function () {
@@ -41,6 +43,6 @@ FILE "audio.m4a" M4A
     PERFORMER "Unknown"
     INDEX 01 03:09:00
 `;
-    assert.equal(CUE_EXPECTED, fs.readFileSync('/tmp/test.cue', 'utf-8'));
+    assert.equal(CUE_EXPECTED, fs.readFileSync("/tmp/test.cue", "utf-8"));
   });
 });
