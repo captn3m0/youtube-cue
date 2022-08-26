@@ -49,7 +49,6 @@ if (argv.version) {
   let url = argv._[0];
 
   ytdl.getInfo(url).then((info) => {
-    console.log(info);
     let audioFile = argv["audio-file"]
       ? argv["audio-file"]
       : `${info.videoDetails.title}.m4a`;
@@ -75,6 +74,7 @@ if (argv.version) {
       artist,
       forceTimestamps,
       forceDurations,
+      length: Number(info.videoDetails.lengthSeconds)
     });
     generate({ tracks, artist, audioFile, album }, output_file);
     console.log(`"${output_file}" saved`);
