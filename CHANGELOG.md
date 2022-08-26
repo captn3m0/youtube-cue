@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 1.0.9
+### Changed
+- Dependency Updates
+- Minimum NodeJS version is now v14
+
 ## 1.0.8
 ### Added
 - Dependency Updates
