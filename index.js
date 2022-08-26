@@ -74,7 +74,7 @@ if (argv.version) {
       artist,
       forceTimestamps,
       forceDurations,
-      length: Number(info.videoDetails.lengthSeconds)
+      length: Number(info.videoDetails.lengthSeconds),
     });
     generate({ tracks, artist, audioFile, album }, output_file);
     console.log(`"${output_file}" saved`);

@@ -153,11 +153,11 @@ var fixDurations = function (list) {
   }
 };
 
-var dropInvalid = function(e) {
+var dropInvalid = function (e) {
   // All tracks should start before the closing time
-  if (_options.length) return (e.start.calc < _options.length);
+  if (_options.length) return e.start.calc < _options.length;
   return true;
-}
+};
 
 export function parse(
   text,
@@ -190,5 +190,10 @@ export function parse(
     }
   }
 
-  return result.map(parseTitle).map(parseArtist).map(addTrack).map(addEnd).filter(dropInvalid);
+  return result
+    .map(parseTitle)
+    .map(parseArtist)
+    .map(addTrack)
+    .map(addEnd)
+    .filter(dropInvalid);
 }
