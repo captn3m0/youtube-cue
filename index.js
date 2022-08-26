@@ -49,6 +49,7 @@ if (argv.version) {
   let url = argv._[0];
 
   ytdl.getInfo(url).then((info) => {
+    console.log(info)
     let audioFile = argv["audio-file"]
       ? argv["audio-file"]
       : `${info.videoDetails.title}.m4a`;
