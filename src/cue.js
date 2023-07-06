@@ -1,5 +1,10 @@
 import fs from "fs";
 
+/** code to create a new CUE file, as per the standard
+ * with a REM PERFORMER, TITLE, FILE attribute
+ * and a list of tracks provided as input
+ */
+
 // https://en.wikipedia.org/wiki/Cue_sheet_(computing)
 export function generate(data, outputFile) {
   try {

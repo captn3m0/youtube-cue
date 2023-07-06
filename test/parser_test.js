@@ -152,7 +152,7 @@ describe("Parser", function () {
     let result = parse(
       `1. Artist - Title 5:00
 2. Another Artist - Another Title 4:20`,
-      { forceTimestamps: true }
+      { forceTimestamps: true },
     );
     assert.deepEqual(result[0].end, {
       ts: "00:4:20",
@@ -174,7 +174,7 @@ describe("Parser", function () {
     let result = parse(
       `1. Artist - Title 1:00
 2. Another Artist - Another Title 1:15`,
-      { forceDurations: true }
+      { forceDurations: true },
     );
     assert.deepEqual(result[0], {
       track: 1,
