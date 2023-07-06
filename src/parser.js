@@ -161,7 +161,11 @@ var dropInvalid = function (e) {
 
 export function parse(
   text,
-  options = { artist: "Unknown", forceTimestamps: false, forceDurations: false }
+  options = {
+    artist: "Unknown",
+    forceTimestamps: false,
+    forceDurations: false,
+  },
 ) {
   _options = options;
   let durations = false;
