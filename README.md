@@ -52,14 +52,12 @@ You need to pass 2 parameters, a Youtube URL and a output CUE filename. YouTube 
     very specific edge cases, they should not be required for most files.
 
     Examples
-      $ youtube-cue --audio-file audio.m4a "https://www.youtube.com/watch?v=THzUassmQwE"
-        "T A Y L O R  S W I F T – Folklore [Full album].cue" saved
-      $ youtube-cue "https://youtu.be/THzUassmQwE" folklore.cue
-        folklore.cue saved
+      $ youtube-cue --audio-file audio.m4a "https://www.youtube.com/watch?v=WzpmVxvoBoc" "The Groovy Nobody - Solarium.cue"
+        "The Groovy Nobody - Solarium.cue" saved
 
 ## Personal Usage
 
-I have this in my `.bashrc` to download, split, tag, and import albums:
+I have this in my `.bashrc` to download, split, tag, and import albums using beet:
 
 ```shell
 function ytdl.album() {
