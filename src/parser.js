@@ -41,8 +41,8 @@ var firstPass = function (line) {
   let track = matches.groups["trackl"]
     ? +matches.groups["trackl"]
     : matches.groups["trackr"]
-    ? +matches.groups["trackr"]
-    : null;
+      ? +matches.groups["trackr"]
+      : null;
   return {
     track: track,
     start: {
@@ -165,7 +165,7 @@ export function parse(
     artist: "Unknown",
     forceTimestamps: false,
     forceDurations: false,
-  }
+  },
 ) {
   _options = options;
   let durations = false;
