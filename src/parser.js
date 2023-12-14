@@ -165,7 +165,7 @@ export function parse(
     artist: "Unknown",
     forceTimestamps: false,
     forceDurations: false,
-  },
+  }
 ) {
   _options = options;
   let durations = false;
